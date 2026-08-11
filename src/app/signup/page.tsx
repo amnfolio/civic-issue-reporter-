@@ -50,19 +50,18 @@ export default function SignupPage() {
     setIsLoading(true);
 
     try {
-      const { error: signUpError } = await authClient.signUp.email({
+      const result = await authClient.signUp.email({
         email,
         name,
         password,
       });
 
-      if (signUpError?.code) {
-        setError(getErrorMessage(signUpError.code));
+      if (result?.error?.code) {
+        setError(getErrorMessage(result.error.code));
         setIsLoading(false);
         return;
       }
 
-      // Redirect to login page with success message
       router.push("/login?registered=true");
     } catch (err) {
       setError("An unexpected error occurred. Please try again.");

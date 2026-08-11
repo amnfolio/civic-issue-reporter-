@@ -55,9 +55,8 @@ export default function Navbar() {
 
   const handleAdminPasswordSubmit = () => {
     setIsVerifying(true);
-    
-    // Check if password matches "jss project"
-    if (adminPassword.trim() === "jss project") {
+
+    if (adminPassword.trim() === "Aman$$2311") {
       toast.success("Access granted! Redirecting to admin panel...");
       setAdminPasswordDialog(false);
       setAdminPassword("");
@@ -67,7 +66,7 @@ export default function Navbar() {
       toast.error("Incorrect password. Please try again.");
       setAdminPassword("");
     }
-    
+
     setIsVerifying(false);
   };
 

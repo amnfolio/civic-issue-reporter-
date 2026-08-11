@@ -26,8 +26,9 @@ export async function GET(request: NextRequest) {
     };
 
     statusCountsResult.forEach(row => {
-      if (row.status in issuesByStatus) {
-        issuesByStatus[row.status as keyof typeof issuesByStatus] = row.count;
+      const status = row.status as keyof typeof issuesByStatus;
+      if (status in issuesByStatus) {
+        issuesByStatus[status] = Number(row.count ?? 0);
       }
     });
 
@@ -135,6 +136,33 @@ export async function GET(request: NextRequest) {
 
   } catch (error) {
     console.error('GET statistics error:', error);
+
+    const isMissingTable = error instanceof Error && (
+      error.message.includes('no such table') ||
+      error.message.includes('SQLITE_ERROR')
+    );
+
+    if (isMissingTable) {
+      return NextResponse.json({
+        totalIssues: 0,
+        issuesByStatus: {
+          received: 0,
+          in_progress: 0,
+          resolved: 0,
+          rejected: 0,
+        },
+        issuesByCategory: {},
+        totalVotes: 0,
+        mostVotedIssue: null,
+        recentIssues: [],
+        resolutionRate: 0,
+        averageVotesPerIssue: 0,
+        issuesByDepartment: {},
+        issuesLast7Days: 0,
+        issuesLast30Days: 0,
+      }, { status: 200 });
+    }
+
     return NextResponse.json({ 
       error: 'Failed to fetch statistics: ' + (error instanceof Error ? error.message : 'Unknown error')
     }, { status: 500 });

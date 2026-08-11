@@ -28,20 +28,20 @@ function LoginForm() {
     setIsLoading(true);
 
     try {
-      const { error: signInError } = await authClient.signIn.email({
+      const result = await authClient.signIn.email({
         email,
         password,
         rememberMe,
         callbackURL: "/dashboard",
       });
 
+      const signInError = result?.error;
       if (signInError) {
-        setError("Invalid email or password. Please try again.");
+        setError(signInError.message || "Invalid email or password. Please try again.");
         setIsLoading(false);
         return;
       }
 
-      // Redirect to dashboard
       window.location.href = "/dashboard";
     } catch (err) {
       setError("An unexpected error occurred. Please try again.");
