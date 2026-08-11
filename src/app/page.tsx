@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -61,35 +62,63 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden py-20 sm:py-32 gradient-bg-vibrant">
+        <div className="blob animate-blob w-96 h-96 bg-primary top-[-15%] left-[-10%]" />
+        <div className="blob animate-blob w-80 h-80 bg-accent bottom-[-15%] right-[-8%]" style={{ animationDelay: "4s" }} />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6"
+            >
               Report. Track. Resolve.
-              <span className="block text-primary mt-2">Your Civic Issues</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              <span className="block gradient-text mt-2">Your Civic Issues</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+              className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto"
+            >
               CivicSense empowers citizens to report civic problems, track their progress, and work together
               with local authorities to create a better community.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
               <Link href="/signup">
-                <Button size="lg" className="text-lg px-8">
-                  Get Started
-                </Button>
+                <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+                  <Button size="lg" className="text-lg px-8 bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-lg">
+                    Get Started
+                  </Button>
+                </motion.div>
               </Link>
               <Link href="/login">
-                <Button size="lg" variant="outline" className="text-lg px-8">
-                  Sign In
-                </Button>
+                <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+                  <Button size="lg" variant="outline" className="text-lg px-8">
+                    Sign In
+                  </Button>
+                </motion.div>
               </Link>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section id="stats" className="py-16 bg-white">
+      <motion.section
+        id="stats"
+        className="py-16 bg-white"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Platform Statistics</h2>
@@ -221,10 +250,17 @@ export default function Home() {
             <p className="text-center text-gray-600">Failed to load statistics</p>
           )}
         </div>
-      </section>
+      </motion.section>
 
       {/* Features Section */}
-      <section id="features" className="py-16">
+      <motion.section
+        id="features"
+        className="py-16"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Key Features</h2>
@@ -293,10 +329,16 @@ export default function Home() {
             </Card>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Recent Issues Section */}
-      <section className="py-16 bg-white">
+      <motion.section
+        className="py-16 bg-white"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Recent Issues</h2>
@@ -354,10 +396,16 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary text-white">
+      <motion.section
+        className="py-20 bg-gradient-to-r from-primary to-accent text-white"
+        initial={{ opacity: 0, scale: 0.97 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Make a Difference?</h2>
           <p className="text-lg mb-8 opacity-90">
@@ -369,7 +417,7 @@ export default function Home() {
             </Button>
           </Link>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
